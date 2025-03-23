@@ -1,8 +1,8 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'NFT Storage Apps',
-  description: 'Upload and store files on IPFS with Pinata',
+  title: 'Cactus',
+  description: 'Democratizing AI Computing',
 }; 
 
 export default function RootLayout({ children }) {
