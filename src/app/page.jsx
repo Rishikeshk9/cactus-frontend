@@ -2,35 +2,103 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+    <div className="min-h-screen">
       {/* Navigation */}
-      <nav className="fixed w-full bg-gray-900/80 backdrop-blur-sm z-50">
+      <nav className="glass-effect fixed w-full z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
-              <span className="text-2xl font-bold text-green-400">🌵 Cactus</span>
+              <Link href="/" className="flex items-center text-2xl font-bold glow-text">
+                <Image
+                  src="/cactus.ico"
+                  alt="Cactus Logo"
+                  width={32}
+                  height={32}
+                  className="mr-2"
+                />
+                <span>Cactus</span>
+              </Link>
             </div>
+            
+            {/* Desktop Navigation */}
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
-                <Link href="#features" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                <Link href="#features" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors relative group">
                   Features
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-400 transition-all group-hover:w-full"></span>
                 </Link>
-                <Link href="#benefits" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                <Link href="#benefits" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors relative group">
                   Benefits
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-400 transition-all group-hover:w-full"></span>
                 </Link>
-                <Link href="#how-it-works" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                <Link href="#how-it-works" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors relative group whitespace-nowrap">
                   How It Works
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-400 transition-all group-hover:w-full"></span>
                 </Link>
-                <Link href="/playground" className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium">
+                <Link href="/playground" className="web3-button primary">
                   Try It Now
                 </Link>
               </div>
             </div>
+
+            {/* Mobile menu button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              >
+                <span className="sr-only">Open main menu</span>
+                {!isMenuOpen ? (
+                  <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                ) : (
+                  <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile menu */}
+        <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'}`}>
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <Link
+              href="#features"
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Features
+            </Link>
+            <Link
+              href="#benefits"
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Benefits
+            </Link>
+            <Link
+              href="#how-it-works"
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              How It Works
+            </Link>
+            <Link
+              href="/playground"
+              className="block px-3 py-2 rounded-md text-base font-medium text-white bg-purple-600 hover:bg-purple-700"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Try It Now
+            </Link>
           </div>
         </div>
       </nav>
@@ -41,19 +109,19 @@ export default function Home() {
           <div className="text-center">
             <h1 className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
               <span className="block">Distributed GPU Computing</span>
-              <span className="block text-green-400">Made Simple</span>
+              <span className="block glow-text">Made Simple</span>
             </h1>
             <p className="mt-3 max-w-md mx-auto text-base text-gray-300 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
               Access powerful GPU resources from anywhere. Run AI models, process data, and accelerate your computations without the complexity.
             </p>
             <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
               <div className="rounded-md shadow">
-                <Link href="/playground" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-500 hover:bg-green-600 md:py-4 md:text-lg md:px-10">
+                <Link href="/playground" className="web3-button primary">
                   Get Started
                 </Link>
               </div>
               <div className="mt-3 sm:mt-0 sm:ml-3">
-                <Link href="#how-it-works" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-green-400 bg-gray-800 hover:bg-gray-700 md:py-4 md:text-lg md:px-10">
+                <Link href="#how-it-works" className="web3-button secondary">
                   Learn More
                 </Link>
               </div>
@@ -63,7 +131,7 @@ export default function Home() {
       </div>
 
       {/* Features Section */}
-      <div id="features" className="py-16 bg-gray-800">
+      <div id="features" className="py-16 bg-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
@@ -75,24 +143,24 @@ export default function Home() {
           </div>
           <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {/* Feature 1 */}
-            <div className="bg-gray-900 rounded-lg p-6">
-              <div className="text-green-400 text-2xl mb-4">🌐</div>
+            <div className="web3-card p-6 hover-glow">
+              <div className="text-purple-400 text-2xl mb-4">🌐</div>
               <h3 className="text-lg font-medium text-white">Distributed Computing</h3>
               <p className="mt-2 text-gray-300">
                 Access GPU resources from anywhere in the world through our secure network.
               </p>
             </div>
             {/* Feature 2 */}
-            <div className="bg-gray-900 rounded-lg p-6">
-              <div className="text-green-400 text-2xl mb-4">⚡</div>
+            <div className="web3-card p-6 hover-glow">
+              <div className="text-purple-400 text-2xl mb-4">⚡</div>
               <h3 className="text-lg font-medium text-white">Dynamic Scaling</h3>
               <p className="mt-2 text-gray-300">
                 Automatically find and use the best available GPU for your tasks.
               </p>
             </div>
             {/* Feature 3 */}
-            <div className="bg-gray-900 rounded-lg p-6">
-              <div className="text-green-400 text-2xl mb-4">🛡️</div>
+            <div className="web3-card p-6 hover-glow">
+              <div className="text-purple-400 text-2xl mb-4">🛡️</div>
               <h3 className="text-lg font-medium text-white">Reliable & Secure</h3>
               <p className="mt-2 text-gray-300">
                 Built-in fault tolerance and secure connections for peace of mind.
@@ -116,9 +184,9 @@ export default function Home() {
           <div className="mt-12">
             <div className="space-y-10">
               {/* Benefit 1 */}
-              <div className="flex items-start">
+              <div className="flex items-start web3-card p-6 hover-glow">
                 <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center h-12 w-12 rounded-md bg-green-500 text-white">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br from-purple-600 to-blue-500 text-white">
                     💰
                   </div>
                 </div>
@@ -130,9 +198,9 @@ export default function Home() {
                 </div>
               </div>
               {/* Benefit 2 */}
-              <div className="flex items-start">
+              <div className="flex items-start web3-card p-6 hover-glow">
                 <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center h-12 w-12 rounded-md bg-green-500 text-white">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br from-purple-600 to-blue-500 text-white">
                     🚀
                   </div>
                 </div>
@@ -144,9 +212,9 @@ export default function Home() {
                 </div>
               </div>
               {/* Benefit 3 */}
-              <div className="flex items-start">
+              <div className="flex items-start web3-card p-6 hover-glow">
                 <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center h-12 w-12 rounded-md bg-green-500 text-white">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br from-purple-600 to-blue-500 text-white">
                     🔄
                   </div>
                 </div>
@@ -163,7 +231,7 @@ export default function Home() {
       </div>
 
       {/* How It Works Section */}
-      <div id="how-it-works" className="py-16 bg-gray-800">
+      <div id="how-it-works" className="py-16 bg-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
@@ -177,14 +245,14 @@ export default function Home() {
           <div className="mt-12">
             <div className="relative">
               {/* Vertical line */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-green-500/20"></div>
+              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-purple-500/20 to-blue-500/20"></div>
 
               {/* Step 1 */}
               <div className="relative mb-12">
                 <div className="flex items-center">
                   <div className="flex-shrink-0 w-1/2 pr-8 text-right">
-                    <div className="bg-gray-900 rounded-lg p-6">
-                      <div className="text-green-400 text-2xl mb-4">1️⃣</div>
+                    <div className="web3-card p-6 hover-glow">
+                      <div className="text-purple-400 text-2xl mb-4">1️⃣</div>
                       <h3 className="text-lg font-medium text-white">Client Registration</h3>
                       <p className="mt-2 text-gray-300">
                         GPU providers register their machines with Cactus, sharing their capabilities and available resources.
@@ -192,13 +260,13 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="absolute left-1/2 transform -translate-x-1/2">
-                    <div className="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center">
+                    <div className="h-8 w-8 rounded-full bg-gradient-to-br from-purple-600 to-blue-500 flex items-center justify-center">
                       <span className="text-white font-bold">1</span>
                     </div>
                   </div>
                   <div className="flex-shrink-0 w-1/2 pl-8">
-                    <div className="bg-gray-900 rounded-lg p-6">
-                      <div className="text-green-400 text-2xl mb-4">2️⃣</div>
+                    <div className="web3-card p-6 hover-glow">
+                      <div className="text-purple-400 text-2xl mb-4">2️⃣</div>
                       <h3 className="text-lg font-medium text-white">Resource Discovery</h3>
                       <p className="mt-2 text-gray-300">
                         The system maintains a real-time registry of available GPUs and their capabilities.
@@ -212,8 +280,8 @@ export default function Home() {
               <div className="relative mb-12">
                 <div className="flex items-center">
                   <div className="flex-shrink-0 w-1/2 pr-8 text-right">
-                    <div className="bg-gray-900 rounded-lg p-6">
-                      <div className="text-green-400 text-2xl mb-4">3️⃣</div>
+                    <div className="web3-card p-6 hover-glow">
+                      <div className="text-purple-400 text-2xl mb-4">3️⃣</div>
                       <h3 className="text-lg font-medium text-white">Task Submission</h3>
                       <p className="mt-2 text-gray-300">
                         Users submit their AI tasks through our simple API or web interface.
@@ -221,13 +289,13 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="absolute left-1/2 transform -translate-x-1/2">
-                    <div className="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center">
+                    <div className="h-8 w-8 rounded-full bg-gradient-to-br from-purple-600 to-blue-500 flex items-center justify-center">
                       <span className="text-white font-bold">2</span>
                     </div>
                   </div>
                   <div className="flex-shrink-0 w-1/2 pl-8">
-                    <div className="bg-gray-900 rounded-lg p-6">
-                      <div className="text-green-400 text-2xl mb-4">4️⃣</div>
+                    <div className="web3-card p-6 hover-glow">
+                      <div className="text-purple-400 text-2xl mb-4">4️⃣</div>
                       <h3 className="text-lg font-medium text-white">Smart Allocation</h3>
                       <p className="mt-2 text-gray-300">
                         Our system automatically matches tasks with the most suitable GPU based on requirements.
@@ -241,8 +309,8 @@ export default function Home() {
               <div className="relative">
                 <div className="flex items-center">
                   <div className="flex-shrink-0 w-1/2 pr-8 text-right">
-                    <div className="bg-gray-900 rounded-lg p-6">
-                      <div className="text-green-400 text-2xl mb-4">5️⃣</div>
+                    <div className="web3-card p-6 hover-glow">
+                      <div className="text-purple-400 text-2xl mb-4">5️⃣</div>
                       <h3 className="text-lg font-medium text-white">Task Execution</h3>
                       <p className="mt-2 text-gray-300">
                         Tasks are executed on the allocated GPU with real-time monitoring and progress updates.
@@ -250,13 +318,13 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="absolute left-1/2 transform -translate-x-1/2">
-                    <div className="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center">
+                    <div className="h-8 w-8 rounded-full bg-gradient-to-br from-purple-600 to-blue-500 flex items-center justify-center">
                       <span className="text-white font-bold">3</span>
                     </div>
                   </div>
                   <div className="flex-shrink-0 w-1/2 pl-8">
-                    <div className="bg-gray-900 rounded-lg p-6">
-                      <div className="text-green-400 text-2xl mb-4">6️⃣</div>
+                    <div className="web3-card p-6 hover-glow">
+                      <div className="text-purple-400 text-2xl mb-4">6️⃣</div>
                       <h3 className="text-lg font-medium text-white">Result Delivery</h3>
                       <p className="mt-2 text-gray-300">
                         Results are securely delivered back to the user, with automatic cleanup of resources.
@@ -267,69 +335,8 @@ export default function Home() {
               </div>
             </div>
           </div>
-
-          {/* System Architecture */}
-          <div className="mt-16">
-            <div className="text-center">
-              <h3 className="text-2xl font-bold text-white">System Architecture</h3>
-              <p className="mt-4 text-gray-300">
-                Built with modern technologies for reliability and scalability
-              </p>
-            </div>
-            <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="bg-gray-900 rounded-lg p-6">
-                <div className="text-green-400 text-2xl mb-4">🔒</div>
-                <h4 className="text-lg font-medium text-white">Secure Communication</h4>
-                <p className="mt-2 text-gray-300">
-                  End-to-end encryption and secure protocols for data transfer
-                </p>
-              </div>
-              <div className="bg-gray-900 rounded-lg p-6">
-                <div className="text-green-400 text-2xl mb-4">⚡</div>
-                <h4 className="text-lg font-medium text-white">Real-time Updates</h4>
-                <p className="mt-2 text-gray-300">
-                  WebSocket connections for live status and progress updates
-                </p>
-              </div>
-              <div className="bg-gray-900 rounded-lg p-6">
-                <div className="text-green-400 text-2xl mb-4">🔄</div>
-                <h4 className="text-lg font-medium text-white">Fault Tolerance</h4>
-                <p className="mt-2 text-gray-300">
-                  Automatic failover and task redistribution on failures
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
-
-      {/* CTA Section */}
-      <div className="bg-gray-800">
-        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-          <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-            <span className="block">Ready to get started?</span>
-            <span className="block text-green-400">Start using Cactus today.</span>
-          </h2>
-          <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
-            <div className="inline-flex rounded-md shadow">
-              <Link href="/playground" className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-500 hover:bg-green-600">
-                Get Started
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <footer className="bg-gray-900">
-        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <p className="text-gray-400">
-              Built with ❤️ for the AI community
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 } 

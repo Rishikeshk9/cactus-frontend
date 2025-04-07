@@ -5,32 +5,85 @@ import Link from 'next/link';
 
 export default function Playground() {
   const [activeTab, setActiveTab] = useState('overview');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+    <div className="min-h-screen">
       {/* Navigation */}
-      <nav className="fixed w-full bg-gray-900/80 backdrop-blur-sm z-50">
+      <nav className="glass-effect fixed w-full z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
-              <Link href="/" className="text-2xl font-bold text-green-400">🌵 Cactus</Link>
+              <Link href="/" className="text-2xl font-bold glow-text">🌵 Cactus</Link>
             </div>
+            
+            {/* Desktop Navigation */}
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
-                <Link href="/" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                <Link href="/" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors relative group">
                   Home
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-400 transition-all group-hover:w-full"></span>
                 </Link>
-                <Link href="/playground#overview" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                <Link href="/playground#overview" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors relative group">
                   Overview
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-400 transition-all group-hover:w-full"></span>
                 </Link>
-                <Link href="/playground#setup" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                <Link href="/playground#setup" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors relative group">
                   Setup
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-400 transition-all group-hover:w-full"></span>
                 </Link>
-                <Link href="/playground#protocol" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                <Link href="/playground#protocol" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors relative group">
                   Protocol
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-400 transition-all group-hover:w-full"></span>
                 </Link>
               </div>
             </div>
+
+            {/* Mobile menu button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              >
+                <span className="sr-only">Open main menu</span>
+                {!isMenuOpen ? (
+                  <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                ) : (
+                  <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile menu */}
+        <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'}`}>
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <Link
+              href="/"
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Home
+            </Link>
+            <Link
+              href="/playground"
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Playground
+            </Link>
+            <Link
+              href="/docs"
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Documentation
+            </Link>
           </div>
         </div>
       </nav>
@@ -51,7 +104,7 @@ export default function Playground() {
           {/* Two Paths Section */}
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             {/* Orchestrator Path */}
-            <div className="bg-gray-900 rounded-lg p-8 border border-green-500/20 hover:border-green-500/40 transition-colors">
+            <div className="web3-card p-8 hover-glow">
               <div className="space-y-6">
                 <div className="text-center">
                   <h2 className="text-3xl font-bold text-white">🎮 GPU Orchestrator</h2>
@@ -59,7 +112,7 @@ export default function Playground() {
                 </div>
                 
                 <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-green-400">What you'll get:</h3>
+                  <h3 className="text-xl font-semibold text-purple-400">What you'll get:</h3>
                   <ul className="list-disc list-inside text-gray-300 space-y-2">
                     <li>Earn blockchain rewards for sharing GPU resources</li>
                     <li>Automatic resource management and scaling</li>
@@ -69,7 +122,7 @@ export default function Playground() {
                 </div>
 
                 <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-green-400">Requirements:</h3>
+                  <h3 className="text-xl font-semibold text-purple-400">Requirements:</h3>
                   <ul className="list-disc list-inside text-gray-300 space-y-2">
                     <li>NVIDIA GPU with CUDA support</li>
                     <li>Stable internet connection</li>
@@ -80,7 +133,7 @@ export default function Playground() {
                 <div className="pt-4">
                   <Link
                     href="/playground#setup"
-                    className="block w-full text-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-black bg-green-400 hover:bg-green-500 transition-colors"
+                    className="web3-button primary"
                   >
                     Setup Orchestrator →
                   </Link>
@@ -89,7 +142,7 @@ export default function Playground() {
             </div>
 
             {/* API User Path */}
-            <div className="bg-gray-900 rounded-lg p-8 border border-blue-500/20 hover:border-blue-500/40 transition-colors">
+            <div className="web3-card p-8 hover-glow">
               <div className="space-y-6">
                 <div className="text-center">
                   <h2 className="text-3xl font-bold text-white">🚀 API Integration</h2>
@@ -97,7 +150,7 @@ export default function Playground() {
                 </div>
 
                 <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-blue-400">Available Models:</h3>
+                  <h3 className="text-xl font-semibold text-purple-400">Available Models:</h3>
                   <ul className="list-disc list-inside text-gray-300 space-y-2">
                     <li>Stable Diffusion 1.5 for image generation</li>
                     <li>COVID-19 X-Ray Analysis</li>
@@ -106,7 +159,7 @@ export default function Playground() {
                 </div>
 
                 <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-blue-400">Features:</h3>
+                  <h3 className="text-xl font-semibold text-purple-400">Features:</h3>
                   <ul className="list-disc list-inside text-gray-300 space-y-2">
                     <li>Simple REST API integration</li>
                     <li>Pay-as-you-go pricing</li>
@@ -118,7 +171,7 @@ export default function Playground() {
                 <div className="pt-4">
                   <Link
                     href="/playground#api"
-                    className="block w-full text-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-black bg-blue-400 hover:bg-blue-500 transition-colors"
+                    className="web3-button secondary"
                   >
                     View API Docs →
                   </Link>
@@ -130,12 +183,12 @@ export default function Playground() {
           {/* Detailed Sections */}
           <div className="space-y-12">
             {/* Orchestrator Setup Section */}
-            <div id="setup" className="bg-gray-900 rounded-lg p-8">
+            <div id="setup" className="web3-card p-8">
               <h2 className="text-2xl font-bold text-white mb-6">Orchestrator Setup Guide</h2>
               <div className="space-y-8">
                 <div>
-                  <h3 className="text-xl font-semibold text-green-400 mb-3">1. Install Ngrok</h3>
-                  <div className="bg-gray-800 rounded-lg p-4">
+                  <h3 className="text-xl font-semibold text-purple-400 mb-3">1. Install Ngrok</h3>
+                  <div className="web3-card p-4">
                     <p className="text-gray-300 mb-4">
                       First, install Ngrok from their official website. Ngrok is required to create a public URL for your GPU client.
                     </p>
@@ -143,7 +196,7 @@ export default function Playground() {
                       href="https://ngrok.com/download" 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="text-green-400 hover:text-green-300 underline"
+                      className="text-purple-400 hover:text-purple-300 underline"
                     >
                       Download Ngrok → ngrok.com/download
                     </a>
@@ -154,8 +207,8 @@ export default function Playground() {
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-semibold text-green-400 mb-3">2. Download Cactus Client</h3>
-                  <div className="bg-gray-800 rounded-lg p-4">
+                  <h3 className="text-xl font-semibold text-purple-400 mb-3">2. Download Cactus Client</h3>
+                  <div className="web3-card p-4">
                     <p className="text-gray-300 mb-4">
                       Download the latest release of Cactus client from our GitHub releases page:
                     </p>
@@ -163,7 +216,7 @@ export default function Playground() {
                       href="https://github.com/Rishikeshk9/cactus/releases" 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="text-green-400 hover:text-green-300 underline"
+                      className="text-purple-400 hover:text-purple-300 underline"
                     >
                       Download Latest Release → github.com/Rishikeshk9/cactus/releases
                     </a>
@@ -171,14 +224,14 @@ export default function Playground() {
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-semibold text-green-400 mb-3">3. Extract and Run</h3>
-                  <div className="bg-gray-800 rounded-lg p-4">
+                  <h3 className="text-xl font-semibold text-purple-400 mb-3">3. Extract and Run</h3>
+                  <div className="web3-card p-4">
                     <p className="text-gray-300 mb-4">
                       1. Extract the downloaded zip file to your preferred location<br/>
                       2. Open a terminal or command prompt in the extracted folder<br/>
                       3. Run the client using the following command:
                     </p>
-                    <pre className="text-gray-300 overflow-x-auto bg-gray-900 p-4 rounded">
+                    <pre className="text-gray-300 overflow-x-auto bg-gray-900/50 p-4 rounded-lg border border-gray-700">
                       <code>{`cactus-client.exe client --server-url http://3.110.255.211:8001`}</code>
                     </pre>
                     <p className="text-gray-300 mt-4">
@@ -191,12 +244,12 @@ export default function Playground() {
             </div>
 
             {/* API Documentation Section */}
-            <div id="api" className="bg-gray-900 rounded-lg p-8">
+            <div id="api" className="web3-card p-8">
               <h2 className="text-2xl font-bold text-white mb-6">API Documentation</h2>
               <div className="space-y-8">
                 <div>
-                  <h3 className="text-xl font-semibold text-blue-400 mb-3">Base URL</h3>
-                  <div className="bg-gray-800 rounded-lg p-4">
+                  <h3 className="text-xl font-semibold text-purple-400 mb-3">Base URL</h3>
+                  <div className="web3-card p-4">
                     <pre className="text-gray-300 overflow-x-auto">
                       <code>{`const BASE_URL = 'http://3.110.255.211:8001'`}</code>
                     </pre>
@@ -204,8 +257,8 @@ export default function Playground() {
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-semibold text-blue-400 mb-3">Authentication</h3>
-                  <div className="bg-gray-800 rounded-lg p-4">
+                  <h3 className="text-xl font-semibold text-purple-400 mb-3">Authentication</h3>
+                  <div className="web3-card p-4">
                     <p className="text-gray-300">
                       API access requires an API key. Contact us to get your API key for development or production use.
                     </p>
@@ -213,12 +266,12 @@ export default function Playground() {
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-semibold text-blue-400 mb-3">Available Endpoints</h3>
+                  <h3 className="text-xl font-semibold text-purple-400 mb-3">Available Endpoints</h3>
                   <div className="space-y-6">
                     {/* Stable Diffusion Endpoint */}
-                    <div className="bg-gray-800 rounded-lg p-6">
+                    <div className="web3-card p-6">
                       <h4 className="text-lg font-medium text-white mb-2">Image Generation (Stable Diffusion)</h4>
-                      <pre className="text-gray-300 overflow-x-auto mb-4">
+                      <pre className="text-gray-300 overflow-x-auto mb-4 bg-gray-900/50 p-4 rounded-lg border border-gray-700">
                         <code>{`POST /predict
 
 Request Body:
@@ -249,9 +302,9 @@ Response:
                     </div>
 
                     {/* COVID X-Ray Endpoint */}
-                    <div className="bg-gray-800 rounded-lg p-6">
+                    <div className="web3-card p-6">
                       <h4 className="text-lg font-medium text-white mb-2">COVID X-Ray Analysis</h4>
-                      <pre className="text-gray-300 overflow-x-auto mb-4">
+                      <pre className="text-gray-300 overflow-x-auto mb-4 bg-gray-900/50 p-4 rounded-lg border border-gray-700">
                         <code>{`POST /predict
 
 Request Body:
@@ -285,8 +338,8 @@ Response:
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-semibold text-blue-400 mb-3">Example Integration</h3>
-                  <div className="bg-gray-800 rounded-lg p-6">
+                  <h3 className="text-xl font-semibold text-purple-400 mb-3">Example Integration</h3>
+                  <div className="web3-card p-6">
                     <pre className="text-gray-300 overflow-x-auto">
                       <code>{`// Example using JavaScript/TypeScript
 
